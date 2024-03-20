@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+
+<body>
+    <!-- Nav Bar Start -->
+    <nav>
+        <ul>
+            <li><a class="active" href="registration.html">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        
+    </nav>
+    <!-- Nav Bar End -->
+<section>
+  <div class="wrapper">
+    <header>Contact Us</header>
+    <form action="#">
+      <div class="field name">
+            <div class="input-area">
+              <input type="text" placeholder="Name">
+              <i class="icon fa fa-user"></i>
+              <i class="error error-icon fas fa-exclamation-circle"></i>
+            </div>
+            <div class="error error-txt">Name can't be blank</div>
+      </div>
+
+      <div class="field phone">
+          <div class="input-area">
+            <input type="number" placeholder="Phone Number">
+            <i class="icon fas fa-phone-square-alt"></i>
+            <i class="error error-icon fas fa-exclamation-circle"></i>
+          </div>
+          <div class="error error-txt">Phone number can't be blank</div>
+      </div>
+
+      <div class="field email">
+        <div class="input-area">
+          <input type="text" placeholder="Email Address">
+          <i class="icon fas fa-envelope"></i>
+          <i class="error error-icon fas fa-exclamation-circle"></i>
+        </div>
+        <div class="error error-txt">Email can't be blank</div>
+      </div>
+
+      <div class="field message">
+        <div class="input-area">
+          <input type="text" placeholder="Message" class="m">
+          <i class="icon fas fa-comment"></i>
+          <i class="error error-icon fas fa-exclamation-circle"></i>
+        </div>
+        <div class="error error-txt">Message can't be blank</div>
+      </div>
+
+      <input type="submit" value="Submit" >
+    </form>
+  </div>
+</section>
+
+<script>
+     const form = document.querySelector("form");
+      nField = form.querySelector(".name"),
+      nInput = nField.querySelector("input"),
+      phField = form.querySelector(".phone"),
+      phInput = phField.querySelector("input"),
+      eField = form.querySelector(".email"),
+      eInput = eField.querySelector("input");
+      mField = form.querySelector(".message"),
+      mInput = mField.querySelector("input");
+
+    form.onsubmit = (e) => {
+      e.preventDefault();
+
+      (nInput.value == "") ? nField.classList.add("shake", "error") : checkName();
+      (phInput.value == "") ? phField.classList.add("shake", "error") : checkPhone();
+      (eInput.value == "") ? eField.classList.add("shake", "error") : checkEmail();
+      (mInput.value == "") ? mField.classList.add("shake", "error") : checkMessage();
+
+      setTimeout(() => {
+        nField.classList.remove("shake");
+        phField.classList.remove("shake");
+        eField.classList.remove("shake");
+        mField.classList.remove("shake");
+      }, 100);
+
+      nInput.onkeyup = () => { checkName(); };
+      phInput.onkeyup = () => { checkPhone(); }
+      eInput.onkeyup = () => { checkEmail(); };
+      mInput.onkeyup = () => { checkMessage(); };
+
+
+      function checkName() {
+        let pattern = /^[a-zA-Z]+$/;
+        if (!nInput.value.match(pattern)) {
+          nField.classList.add("error");
+          nField.classList.remove("valid");
+          let errorTxt = nField.querySelector(".error-txt");
+          (nInput.value != "") ? errorTxt.innerText = "Enter a valid name" : errorTxt.innerText = "Name can't be blank";
+        } 
+        else 
+        { 
+          nField.classList.remove("error");
+          nField.classList.add("valid");
+        }
+      }
+
+      function checkPhone() {
+        let pattern = /^\d{10}$/;
+
+        if (!phInput.value.match(pattern)) {
+          phField.classList.add("error");
+          phField.classList.remove("valid");
+          let errorTxt = phField.querySelector(".error-txt");
+          (phInput.value != "") ? errorTxt.innerText = "Enter a valid phone number" : errorTxt.innerText = "Phone number can't be blank";
+        }
+        else{ 
+          phField.classList.remove("error");
+          phField.classList.add("valid");
+        }
+      }
+
+      function checkEmail() {
+        let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/; 
+        if (!eInput.value.match(pattern)) {
+          eField.classList.add("error");
+          eField.classList.remove("valid");
+          let errorTxt = eField.querySelector(".error-txt");
+          (eInput.value != "") ? errorTxt.innerText = "Enter a valid email address" : errorTxt.innerText = "Email can't be blank";
+        }
+        else{ 
+          eField.classList.remove("error");
+          eField.classList.add("valid");
+        }
+      }
+
+      function checkMessage() {
+        let pattern = /^[a-zA-Z0-9_]+$/;
+        if (!mInput.value.match(pattern)) {
+          mField.classList.add("error");
+          mField.classList.remove("valid");
+          let errorTxt = mField.querySelector(".error-txt");
+          (mInput.value != "") ? errorTxt.innerText = "Enter a valid message" : errorTxt.innerText = "Message can't be blank";
+        } 
+        else 
+        { 
+          mField.classList.remove("error");
+          mField.classList.add("valid");
+        }
+      }
+
+      
+      if (!nField.classList.contains("error") && !phField.classList.contains("error") && !eField.classList.contains("error") && !mField.classList.contains("error")) {
+        window.location.href = form.getAttribute("action");
+        alert("Query Submitted")
+      }
+}
+
+
+</script>
+
+</body>
+</html>
